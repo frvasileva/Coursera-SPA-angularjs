@@ -8,18 +8,13 @@ angular.module('NarrowItDownApp', [])
  
 	NarrowItDownController.$inject=['MenuSearchService']; 
 	function NarrowItDownController(MenuSearchService){
-		var narrow = this;
-		console.log(narrow);
-		var promise = MenuSearchService.getMatchedMenuItems();
-
-		  promise.then(function (response) {
-			narrow.categories = response.data;
-			console.log(response.data);
-		  })
-		  .catch(function (error) {
-			console.log("Something went terribly wrong.");
-		  });
-  
+		var menuCtrl = this;
+		menuCtrl.checkIsInMenu = function(){
+			console.log("clicked ");
+			console.log(menuCtrl.menuItem);
+			var itms = MenuSearchService.getMatchedMenuItems(menuCtrl.menuItem);
+			console.log(itms);
+		}  
 	}
  
 	MenuSearchService.$inject = ['$http'];
@@ -27,15 +22,29 @@ angular.module('NarrowItDownApp', [])
 	{
 		var service = this;
 
-		service.getMatchedMenuItems = function () {
+		service.getMatchedMenuItems = function (searchTerm) {
 
 		 var response = $http({
 						method: "GET",
 						url: 'https://davids-restaurant.herokuapp.com/menu_items.json'
-					});
-		
-		return response;
-	};
+					}).then(function (result) {
+
+						    var foundItems = [];
+							var items = result.data.menu_items
+
+							for (var i = 0, len = items.length; i < len; i++) {
+							 if(items[i].description.indexOf(searchTerm) > -1){
+							 	console.log("search for " + searchTerm, items[i].description);
+							 	foundItems.push(items[i].description);
+							 }
+							}
+						console.log("foundItems ", foundItems);
+						    // return processed items
+						    return foundItems;
+						}, function errorCallback(response) {
+						   		console.log(error);
+						  });		
+			};
   
 	}
 }
