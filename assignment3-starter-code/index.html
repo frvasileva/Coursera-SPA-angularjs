@@ -26,6 +26,10 @@
 				</ul>
 				<hr/>
 				<!-- found-items should be implemented as a component -->
+
+				 <ol>
+        			<list-item ng-repeat="item in menuCtrl.foundItems track by $index"></list-item>
+      			</ol>
 				<found-items found-items="menuCtrl.foundItems"></found-items>		
 		</div>
 	</body>

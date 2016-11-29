@@ -3,10 +3,36 @@
 
     angular.module('NarrowItDownApp', [])
         .controller('NarrowItDownController', NarrowItDownController)
-        .service('MenuSearchService', MenuSearchService);
+        .service('MenuSearchService', MenuSearchService)
+        .directive('foundItems', foundItems);
 
-   
+    function foundItems() {
+        var ddo = {
+            templateUrl: 'foundItems.html'
+          };
+
+        console.log("ddo ", ddo);
+        return ddo;
+    }
+
+    function ItemListDirectiveController() {
+        var list = this;
+
+        list.cookiesInList = function() {
+            for (var i = 0; i < list.items.length; i++) {
+                var name = list.items[i].name;
+                if (name.toLowerCase().indexOf("cookie") !== -1) {
+                    return true;
+                }
+            }
+
+            return false;
+        };
+    }
+
+
     NarrowItDownController.$inject = ['MenuSearchService'];
+
     function NarrowItDownController(MenuSearchService) {
         var menuCtrl = this;
         menuCtrl.foundItems = [];
@@ -18,6 +44,8 @@
                 menuCtrl.foundItems = response;
             });
         }
+
+
     }
 
     MenuSearchService.$inject = ['$http'];
