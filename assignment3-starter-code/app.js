@@ -18,7 +18,7 @@
             controllerAs: 'list',
             bindToController: true
         };
-
+        console.log("ddo",ddo);
         return ddo;
     }
 
@@ -26,14 +26,13 @@
       var list = this;
 
       list.emptyList = function() {
+                console.log("list.items ",list.items );
+
         return list.items ? list.items.length === 0 : false;
       };
     }
 
-
-
     NarrowItDownController.$inject = ['MenuSearchService'];
-
     function NarrowItDownController(MenuSearchService) {
         var menuCtrl = this;
         menuCtrl.foundItems = [];
@@ -50,9 +49,7 @@
         menuCtrl.removeItem = function(index) {
             menuCtrl.foundItems.splice(index, 1);
             };
-    }
-
-
+        }
     }
 
     MenuSearchService.$inject = ['$http'];
