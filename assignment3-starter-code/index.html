@@ -30,7 +30,6 @@
 				 <ol>
         			<list-item ng-repeat="item in menuCtrl.foundItems track by $index"></list-item>
       			</ol>
-				<found-items found-items="menuCtrl.foundItems"></found-items>		
-		</div>
+				<found-items found-items="menuCtrl.found" on-remove="menuCtrl.removeItem(index)"></found-items>		</div>
 	</body>
 </html>
