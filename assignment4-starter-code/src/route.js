@@ -11,15 +11,15 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
 
   // Set up UI states
   $stateProvider
-	  // Home page
-	.state('home', {
+
+  .state('home', {
 	  url: '/',
 	  templateUrl: 'src/templates/home.html'
 	  })
 
     .state('categories', {
       url: '/categories',
-      templateUrl: 'src/templates/categories.html',
+      templateUrl: 'src/templates/categories.template.html',
 	  controller: 'CategoriesController as cats',
 	  resolve: {
       items: ['MenuDataService', function (MenuDataService) {
@@ -29,8 +29,15 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     })
 
     .state('items', {
-      url: '/items',
-      templateUrl: 'src/templates/items.html'
+      url: '/items/{shortName}',
+      templateUrl: 'src/templates/items.template.html',
+	  controller: 'ItemDetailsController as itemDetails',
+	  resolve: {
+			items: ['$stateParams', 'MenuDataService', 
+					function(stateParams, MenuDataService){
+						return MenuDataService.getItemsForCategory(stateParams.shortName);
+				}]
+	}
     });
 }
 

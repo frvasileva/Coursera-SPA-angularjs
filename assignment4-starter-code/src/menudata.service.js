@@ -11,6 +11,7 @@ function MenuDataService($http) {
   var items = [];
 
   service.getAllCategories = function () {
+	  
    var response = $http({
                 method: "GET",
                 url: 'https://davids-restaurant.herokuapp.com/categories.json'
@@ -27,15 +28,20 @@ function MenuDataService($http) {
   
   
   service.getItemsForCategory = function (categoryShortName) {
-    // var deferred = $q.defer();
 
-    // // Wait 2 seconds before returning
-    // $timeout(function () {
-      // // deferred.reject(items);
-      // deferred.resolve(items);
-    // }, 800);
+		var response = $http({
+						method: "GET",
+						url: 'https://davids-restaurant.herokuapp.com/menu_items.json?category=' + categoryShortName
+					}).then(function(result) {
+						console.log(result);
+						return result;
+						
+					}, function errorCallback(response) {
+						console.log(error);
+					});
+  
+    return response;
 
-    // return deferred.promise;
   };
   
 }
