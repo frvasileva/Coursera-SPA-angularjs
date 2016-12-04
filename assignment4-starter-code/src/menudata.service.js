@@ -1,12 +1,12 @@
 (function () {
 'use strict';
 
-angular.module('data')
+angular.module('Data')
 .service('MenuDataService', MenuDataService);
 
 MenuDataService.$inject = ['$http']
-function MenuDataService($q, $timeout) {
-	console.log("menu data service is here");
+function MenuDataService($http) {
+ 
   var service = this;
   var items = [];
 

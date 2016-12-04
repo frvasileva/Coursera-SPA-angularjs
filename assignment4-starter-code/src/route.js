@@ -1,7 +1,5 @@
 (function () {
 
-angular.module('MenuApp',['ui.router']);
-
 angular.module('MenuApp')
 .config(RoutesConfig);
 
@@ -9,7 +7,7 @@ RoutesConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 function RoutesConfig($stateProvider, $urlRouterProvider) {
 
   // Redirect to categories if no other URL matches
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/');
 
   // Set up UI states
   $stateProvider
@@ -21,7 +19,13 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
 
     .state('categories', {
       url: '/categories',
-      templateUrl: 'src/templates/categories.html'
+      templateUrl: 'src/templates/categories.html',
+	  controller: 'CategoriesController as cats',
+	  resolve: {
+      items: ['MenuDataService', function (MenuDataService) {
+		    return MenuDataService.getAllCategories();
+      }]
+    }
     })
 
     .state('items', {
