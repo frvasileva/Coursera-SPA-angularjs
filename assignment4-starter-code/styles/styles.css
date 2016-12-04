@@ -1,1 +1,28 @@
-body{}
+ul{
+	list-style-type: decimal;
+}
+
+ul li{
+	font-size: 18px;
+	color: #333c4e;
+	margin-bottom: 10px;
+}
+
+ul li a{
+	color: #333c4e;
+	text-decoration: none;
+
+}
+
+ul li a:hover{
+	color: rgb(243, 120, 97);
+	text-decoration: underline;
+}
+
+.item-details li{
+margin-bottom:20px;
+}
+
+.dish-name{
+	color: rgb(243, 120, 97);
+}
